@@ -15,7 +15,17 @@ A command-line study system for math — starting with **Pre-Calculus 11 Trigono
 | File Upload | ✅ Analyze .txt notes — detect topic, extract formulas & key terms |
 | Custom Flashcards | ✅ Add your own cards |
 
-## Quick Start
+## Quick Start — Web App (recommended)
+
+```bash
+pip install streamlit
+cd math_tutor_bot
+streamlit run streamlit_app.py
+```
+
+Then open **http://localhost:8501** in your browser.
+
+## Quick Start — Terminal (CLI)
 
 ```bash
 cd math_tutor_bot
