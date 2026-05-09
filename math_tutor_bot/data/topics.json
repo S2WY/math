@@ -1,0 +1,42 @@
+{
+  "topics": [
+    "Arithmetic",
+    "Algebra",
+    "Linear Equations",
+    "Systems of Equations",
+    "Polynomials",
+    "Factoring",
+    "Quadratics",
+    "Rational Expressions",
+    "Functions",
+    "Trigonometry",
+    "Pre-Calculus 11",
+    "Pre-Calculus 12",
+    "Calculus",
+    "Statistics",
+    "Probability",
+    "Geometry",
+    "Physics Math"
+  ],
+  "subtopics": {
+    "Pre-Calculus 11": [
+      "Trigonometry",
+      "Quadratics",
+      "Radical Expressions",
+      "Rational Expressions",
+      "Absolute Value",
+      "Systems of Equations",
+      "Linear Inequalities"
+    ],
+    "Trigonometry": [
+      "Angles and Reference Angles",
+      "Unit Circle",
+      "Sine, Cosine, Tangent",
+      "Exact Values",
+      "Radians and Degrees",
+      "Graphing Trig Functions",
+      "Solving Trig Equations",
+      "Word Problems"
+    ]
+  }
+}
