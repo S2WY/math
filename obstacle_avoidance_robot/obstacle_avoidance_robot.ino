@@ -38,11 +38,33 @@ void setup() {
 
   sumoStop();
 
-  Serial.println("Booting... warming up sensor.");
-  delay(2000);
+  // ── Sensor diagnostic ──────────────────────────────────────────────────
+  // Open Serial Monitor at 115200. Hold your hand ~20 cm in front of the
+  // sensor. You should see durations ~1200 µs and distances ~20 cm.
+  // If every line shows "dur=0" the sensor has no power, a bad ground,
+  // or trig/echo wires are swapped — swap TRIG_PIN / ECHO_PIN and retry.
+  Serial.println("Booting... sensor diagnostic (5 raw readings):");
+  delay(500);
+  for (int i = 0; i < 5; i++) {
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(4);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    long dur = pulseIn(echoPin, HIGH, PULSE_TIMEOUT);
+    Serial.print("  dur=");
+    Serial.print(dur);
+    Serial.print(" us  ->  ");
+    Serial.print((int)(dur * 0.034f / 2.0f));
+    Serial.println(" cm");
+    delay(100);
+  }
+
+  Serial.println("Warming up sensor.");
+  delay(1500);
   for (int i = 0; i < 10; i++) {
     getDistance();
-    delay(50);
+    delay(60);
   }
   Serial.println("Ready. Moving.");
 }
@@ -51,7 +73,7 @@ void setup() {
 
 int getDistance() {
   digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(4);          // slightly longer reset clears any residual charge
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
@@ -69,7 +91,7 @@ int getStableDistance() {
   int r[5];
   for (int i = 0; i < 5; i++) {
     r[i] = getDistance();
-    delay(10);
+    delay(60);  // HC-SR04 needs ≥60 ms between pulses; shorter gaps cause echo bleed
   }
   for (int i = 0; i < 4; i++) {
     for (int j = 0; j < 4 - i; j++) {
@@ -206,8 +228,8 @@ void forwardL() {
 }
 
 void forwardR() {
-  digitalWrite(motorPin3, LOW);
-  digitalWrite(motorPin4, HIGH);
+  digitalWrite(motorPin3, HIGH);
+  digitalWrite(motorPin4, LOW);
 }
 
 void reverseL() {
@@ -216,6 +238,6 @@ void reverseL() {
 }
 
 void reverseR() {
-  digitalWrite(motorPin3, HIGH);
-  digitalWrite(motorPin4, LOW);
+  digitalWrite(motorPin3, LOW);
+  digitalWrite(motorPin4, HIGH);
 }
